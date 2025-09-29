@@ -59,6 +59,12 @@ FROM encounters e
 GROUP BY YEAR(e.START)
 ORDER BY encounter_year;
 
+```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.1_encounters_by_year.png" alt="Encounters by Year" width="300" height="300"/>
+
+```sql
+
+
 -- 2. Percentage of encounters by encounter class
 WITH yearly AS (
     SELECT YEAR(e.Start) AS encounter_year,
@@ -76,6 +82,11 @@ SELECT
 FROM yearly
 GROUP BY encounter_year, EncounterClass
 ORDER BY encounter_year, class_percentage DESC;
+
+```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.2_encounters_by_class.png" alt="Encounters by Class" width="400" height="500"/>
+
+```sql
 
 -- 3. Encounters over vs. under 24 hours
 SELECT 
@@ -95,7 +106,9 @@ GROUP BY
         ELSE '24 Hours or Less'
     END;
 ```
-</details> 
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.3_encounters_by_duration.png" alt="Encounters by Duration" width="300" height="300"/>
+
+</details>
 
 <details> <summary><strong>Objective 2: Cost & Coverage Insights</strong></summary>
 
@@ -110,6 +123,10 @@ SELECT
 FROM encounters
 WHERE PAYER_COVERAGE = 0;
 
+```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.1_zero_coverage_encounters.png" alt="zero_coverage_encounters" width="300" height="300"/>
+
+```sql
 -- 2. Top 10 most frequent procedures and average base cost
 SELECT 
     p.DESCRIPTION AS Procedure,
@@ -119,6 +136,10 @@ FROM procedures AS p
 GROUP BY p.DESCRIPTION
 ORDER BY procedure_count DESC
 LIMIT 10;
+```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.2_common_procedures_costs.png" alt="Common Procedures" width="500" height="800"/>
+
+```sql
 
 -- 3. Top 10 procedures by average base cost
 SELECT
@@ -130,6 +151,10 @@ GROUP BY p.DESCRIPTION
 ORDER BY avg_base_cost DESC
 LIMIT 10;
 
+```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.3_expensive_procedures_avg.png" alt="Expensive Procedures" width="500" height="800"/>
+
+```sql
 -- 4. Average total claim cost by payer
 SELECT
     e.PAYER,
@@ -138,6 +163,8 @@ FROM encounters AS e
 GROUP BY e.PAYER
 ORDER BY avg_total_claim_cost DESC;
 ```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.4_avg_claim_cost_by_payer.png" alt="Avg Claim" width="300" height="300"/>
+
 </details>
 
 <details> <summary><strong>Objective 3: Patient Behavior Analysis</strong></summary>
@@ -151,6 +178,10 @@ SELECT
 FROM encounters e
 GROUP BY YEAR(e.START), QUARTER(e.START)
 ORDER BY encounter_year, encounter_quarter;
+```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.1_unique_patients_by_quarter.png" alt="Quarter" width="300" height="300"/>
+
+```sql
 
 -- 2. Patients readmitted within 30 days
 SELECT
@@ -160,6 +191,11 @@ JOIN encounters e2
     ON e1.PATIENT = e2.PATIENT
     AND e1.START > e2.STOP
     AND TIMESTAMPDIFF(DAY, e2.STOP, e1.START) <= 30;
+```
+
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.2_30day_readmissions.png" alt="30" width="150" height="150"/>
+
+```sql
 
 -- 3. Patients with the most readmissions
 SELECT
@@ -174,6 +210,8 @@ GROUP BY e1.PATIENT
 ORDER BY readmission_count DESC
 LIMIT 10;
 ```
+<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.3_patients_most_readmissions.png" alt="Most" width="300" height="300"/>
+
 </details>
 
 ## Final Conclusion
