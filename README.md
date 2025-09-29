@@ -3,7 +3,7 @@
 This project analyzes **synthetic data** for approximately 1,000 patients from **Massachusetts General Hospital** between **2011–2022**.  
 The dataset includes patient demographics, insurance coverage, medical encounters, and procedures.  
 
-This project will explore healthcare utilization, costs, and patient behavior patterns using SQL queries.
+[This project](https://github.com/a-paija/Hospital-Patient-Records/blob/main/Hospital%20SQL%20Queries.sql) will explore healthcare utilization, costs, and patient behavior patterns using SQL queries.
 
 ---
 
