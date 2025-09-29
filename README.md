@@ -46,7 +46,7 @@ This project will explore healthcare utilization, costs, and patient behavior pa
 
 ---
 
-## SQL Queries
+## SQL Queries & Summarized Outputs
 
 <details>
 <summary><strong>Objective 1: Encounters Overview</strong></summary>
