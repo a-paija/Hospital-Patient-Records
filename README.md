@@ -15,15 +15,15 @@ This project will explore healthcare utilization, costs, and patient behavior pa
 3. What percentage of encounters lasted more than 24 hours versus less than 24 hours?   
 
 ### Objective 2: Cost & Coverage Insights
-4. How many encounters had zero payer coverage?
-5. What are the most common procedures performed and their costs?
-6. Which procedures are the most expensive on average?
-7. What is the average claim cost by payer?
+1. How many encounters had zero payer coverage?
+2. What are the most common procedures performed and their costs?
+3. Which procedures are the most expensive on average?
+4. What is the average claim cost by payer?
 
 ### Objective 3: Patient Behavior Analysis
-8. How many unique patients were admitted each quarter?
-9. How many patients were readmitted within 30 days?
-10. Which patients had the most readmissions?
+1. How many unique patients were admitted each quarter?
+2. How many patients were readmitted within 30 days?
+3. Which patients had the most readmissions?
 
 --- 
 
@@ -100,7 +100,7 @@ GROUP BY
 <details> <summary><strong>Objective 2: Cost & Coverage Insights</strong></summary>
 
 ```sql
--- 4. Encounters with zero payer coverage
+-- 1. Encounters with zero payer coverage
 SELECT
     COUNT(*) AS zero_coverage_count,
     ROUND(
@@ -110,7 +110,7 @@ SELECT
 FROM encounters
 WHERE PAYER_COVERAGE = 0;
 
--- 5. Top 10 most frequent procedures and average base cost
+-- 2. Top 10 most frequent procedures and average base cost
 SELECT 
     p.DESCRIPTION AS Procedure,
     COUNT(*) AS procedure_count,
@@ -120,7 +120,7 @@ GROUP BY p.DESCRIPTION
 ORDER BY procedure_count DESC
 LIMIT 10;
 
--- 6. Top 10 procedures by average base cost
+-- 3. Top 10 procedures by average base cost
 SELECT
     p.DESCRIPTION AS Procedure,
     COUNT(*) AS procedure_count,
@@ -130,7 +130,7 @@ GROUP BY p.DESCRIPTION
 ORDER BY avg_base_cost DESC
 LIMIT 10;
 
--- 7. Average total claim cost by payer
+-- 4. Average total claim cost by payer
 SELECT
     e.PAYER,
     ROUND(AVG(e.TOTAL_CLAIM_COST), 2) AS avg_total_claim_cost
@@ -143,7 +143,7 @@ ORDER BY avg_total_claim_cost DESC;
 <details> <summary><strong>Objective 3: Patient Behavior Analysis</strong></summary>
   
 ```sql
--- 8. Unique patients admitted each quarter
+-- 1. Unique patients admitted each quarter
 SELECT
     YEAR(e.START) AS encounter_year,
     QUARTER(e.START) AS encounter_quarter,
@@ -152,7 +152,7 @@ FROM encounters e
 GROUP BY YEAR(e.START), QUARTER(e.START)
 ORDER BY encounter_year, encounter_quarter;
 
--- 9. Patients readmitted within 30 days
+-- 2. Patients readmitted within 30 days
 SELECT
     COUNT(DISTINCT e1.PATIENT) AS readmitted_patients_count
 FROM encounters e1
@@ -161,7 +161,7 @@ JOIN encounters e2
     AND e1.START > e2.STOP
     AND TIMESTAMPDIFF(DAY, e2.STOP, e1.START) <= 30;
 
--- 10. Patients with the most readmissions
+-- 3. Patients with the most readmissions
 SELECT
     e1.PATIENT,
     COUNT(*) AS readmission_count
