@@ -108,6 +108,16 @@ GROUP BY
 ```
 <img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.3_encounters_by_duration.png" alt="Encounters by Duration" width="300" height="300"/>
 
+<h2>Recommendations</h2>
+
+- If encounters are rising → hospital needs to scale capacity (staff, beds, outpatient programs).
+
+- If emergency visits dominate → invest in outpatient/wellness clinics to reduce ER strain.
+
+- If long stays are common → investigate discharge planning, home health, or care coordination programs.
+
+---
+
 </details>
 
 <details> <summary><strong>Objective 2: Cost & Coverage Insights</strong></summary>
@@ -165,6 +175,18 @@ ORDER BY avg_total_claim_cost DESC;
 ```
 <img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.4_avg_claim_cost_by_payer.png" alt="Avg Claim" width="300" height="300"/>
 
+<h2>Recommendations</h2>
+
+- Explore financial assistance or insurance enrollment programs to reduce uninsured encounters.
+
+- Optimize supply chains, staffing, and standardization around high-frequency procedures.
+
+- Review billing/reimbursement rates for high-cost procedures to avoid underpayment.
+
+- Use claim cost by payer to guide payer contracting strategy (push for fairer rates).
+
+---
+
 </details>
 
 <details> <summary><strong>Objective 3: Patient Behavior Analysis</strong></summary>
@@ -211,6 +233,16 @@ ORDER BY readmission_count DESC
 LIMIT 10;
 ```
 <img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.3_patients_most_readmissions.png" alt="Most" width="300" height="300"/>
+
+<h2>Recommendations</h2>
+
+- Staff planning around seasonal peaks (temporary nurses, flu-shot campaigns).
+
+- Implement readmission reduction programs (follow-up calls, medication adherence checks, discharge education).
+
+- Develop chronic disease management programs for high-risk patients to cut readmissions and costs.
+
+---
 
 </details>
 
