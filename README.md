@@ -46,7 +46,7 @@ The dataset includes patient demographics, insurance coverage, medical encounter
 
 ---
 
-## SQL Queries & Recommendations (Interactive Options)
+## SQL Queries & Recommendations (Interactive Options Click to Open)
 
 <details>
 <summary><strong>Objective 1: Encounters Overview</strong></summary>
