@@ -1,285 +1,185 @@
-# 🏥 Hospital Patient Records & Analysis (SQL)
+# 🏥 Hospital Patient Records & Operational Analysis (SQL)
 
-## 📌 Project Overview
-This project analyzes hospital patient records to uncover operational inefficiencies, identify high-risk patient segments, and support data-driven decision-making around staffing, treatment performance, and patient outcomes.
+## 🟦 Project Background
 
-## 🎯 Business Questions Addressed
-```
-1. How many patients were admitted, and what are the overall admission trends?
-2. Which days and months experience the highest patient volume?
-3. Which medical conditions drive the most hospital visits?
-4. What are the average patient wait times, treatment durations, and length of stay?
-5. Which departments are over- or under-utilized?
-6. What patient demographics (age, gender) are associated with higher admission rates?
-7. What percentage of patients required critical or emergency care?
-8. What diagnoses and treatments contribute most to hospital throughput?
-```
-## 🗂️ Data and Tech Stack
-```
-- Patient demographics  
-- Admission & discharge timestamps  
-- Medical condition / diagnosis  
-- Treatment type & duration  
-- Department information  
-- Outcome (recovered, discharged, further care, etc.)
-```
-```
+Modern healthcare systems generate large volumes of patient and operational data, yet much of it remains underutilized for decision-making. Hospitals often lack clear visibility into **patient flow, resource utilization, cost drivers, and care outcomes**, making it difficult to operate efficiently while maintaining quality of care.
+
+This project analyzes a hospital patient dataset containing **encounters, procedures, demographics, and financial data** to uncover inefficiencies and identify opportunities to improve operational performance.
+
+The dataset includes:
+- Patient admissions and discharges  
+- Encounter types (inpatient, outpatient, emergency)  
+- Procedures and associated costs  
+- Payer coverage and claim data  
+- Patient demographics and outcomes  
+
+Without structured analysis, hospitals struggle to answer critical questions such as:
+- Where operational bottlenecks occur across patient flow  
+- Which services and departments drive demand  
+- How efficiently patients are treated and discharged  
+- Where financial risks and cost inefficiencies exist  
+- Which patient segments are most at risk of readmission  
+
+#### **Overall Goal: Improve hospital efficiency, reduce operational strain, and enhance patient outcomes through data-driven decision-making.**
+
+This project transforms raw healthcare data into actionable insights using **SQL for deep diagnostic analysis**:
+
+- SQL identifies **where inefficiencies occur**  
+- Analysis explains **why they occur**  
+
+---
+
+## 🟦 Business Objectives & Analytical Focus
+
+The primary objective is to evaluate **hospital operations, patient flow, and cost efficiency**.
+
+This project aims to:
+
+1. Analyze patient volume and encounter trends  
+2. Evaluate hospital utilization across encounter types and durations  
+3. Identify high-cost procedures and financial risk areas  
+4. Assess payer coverage and reimbursement patterns  
+5. Measure patient behavior, including readmissions and care continuity  
+
+---
+
+## 🟦 Data Structure & SQL Techniques
+
+### **Core Tables**
+- `encounters` – patient visits, timing, payer, outcomes  
+- `procedures` – treatments and associated costs  
+
+Each record represents a **patient encounter**, with linked operational and financial attributes.
+
+### **SQL Techniques Used**
 - CTEs  
 - Window functions  
 - Aggregations  
-- Date/time manipulation  
 - Joins  
-- Subqueries  
-- Ranking functions  
+- Date/time manipulation  
 - Case statements  
-```
----
-
-
-## 🎯 Project Objectives & Key Questions
-
-### Objective 1: Hospital Encounters Overview
-
-- **Annual Volume:** How many encounters occurred each year, and what does this reveal about trends in hospital demand?  
-- **Encounter Types:** How are encounters distributed across inpatient, outpatient, and emergency categories?  
-- **Duration Analysis:** What percentage of encounters lasted over 24 hours versus 24 hours or less, and what patterns emerge from these durations?  
-
-### Objective 2: Cost & Coverage Insights
-
-- **Coverage Gaps:** How many encounters had zero payer coverage, and what does this indicate about insurance support?  
-- **Procedure Frequency:** Which medical procedures are most frequently performed, and what are their associated costs?  
-- **High-Cost Procedures:** Which procedures are the most expensive on average, highlighting potential areas of financial risk?  
-- **Payer Costs:** What is the average claim cost by payer, and how can this inform contracting and reimbursement strategies?  
-
-### Objective 3: Patient Behavior & Outcomes
-
-- **Quarterly Admissions:** How many unique patients were admitted each quarter, and how does this reflect seasonal or operational patterns?  
-- **Readmission Rates:** How many patients were readmitted within 30 days, indicating potential gaps in care continuity?  
-- **Frequent Readmissions:** Which patients experienced the most readmissions, and what insights can be drawn for patient care management?  
+- Ranking functions  
 
 ---
 
-## Exploratory Analaysis and Code Snippets (Click to Open)
+## 🟩 Executive Summary
 
-<details>
-<summary><strong>Objective 1: Encounters Overview</strong></summary>
+Hospital demand is strong, but performance is constrained by **capacity pressure, cost variability, and inefficiencies in patient flow and care continuity**.
 
-```sql
--- 1. Total encounters per year
-SELECT COUNT(e.START) AS total_encounters,
-       YEAR(e.START) AS encounter_year
-FROM encounters e
-GROUP BY YEAR(e.START)
-ORDER BY encounter_year;
+Key findings:
 
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.1_encounters_by_year.png" alt="Encounters by Year" width="300" height="300"/>
+- Patient volume is increasing, placing strain on resources  
+- A portion of encounters exceeds 24 hours, indicating throughput inefficiencies  
+- High-cost and high-frequency procedures drive overall cost structure  
+- Some encounters lack payer coverage, increasing financial risk  
+- 30-day readmissions highlight gaps in post-discharge care  
 
-```sql
-
-
--- 2. Percentage of encounters by encounter class
-WITH yearly AS (
-    SELECT YEAR(e.Start) AS encounter_year,
-           e.EncounterClass
-    FROM encounters e
-)
-SELECT
-    encounter_year,
-    EncounterClass,
-    COUNT(*) AS class_count,
-    ROUND(
-        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (PARTITION BY encounter_year),
-        2
-    ) AS class_percentage
-FROM yearly
-GROUP BY encounter_year, EncounterClass
-ORDER BY encounter_year, class_percentage DESC;
-
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.2_encounters_by_class.png" alt="Encounters by Class" width="400" height="500"/>
-
-```sql
-
--- 3. Encounters over vs. under 24 hours
-SELECT 
-    CASE 
-        WHEN TIMESTAMPDIFF(HOUR, e.Start, e.Stop) > 24 THEN 'Over 24 Hours'
-        ELSE '24 Hours or Less'
-    END AS duration_group,
-    COUNT(*) AS encounter_count,
-    ROUND(
-        COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (),
-        2
-    ) AS percentage
-FROM encounters e
-GROUP BY 
-    CASE 
-        WHEN TIMESTAMPDIFF(HOUR, e.Start, e.Stop) > 24 THEN 'Over 24 Hours'
-        ELSE '24 Hours or Less'
-    END;
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective1.3_encounters_by_duration.png" alt="Encounters by Duration" width="300" height="300"/>
-
-<h2>Recommendations</h2>
-
-- If encounters are rising → hospital needs to scale capacity (staff, beds, outpatient programs).
-
-- If emergency visits dominate → invest in outpatient/wellness clinics to reduce ER strain.
-
-- If long stays are common → investigate discharge planning, home health, or care coordination programs.
+> **Core Insight:**  
+> The hospital’s primary constraint is not demand, but the ability to efficiently manage patient flow, control costs, and ensure continuity of care.
 
 ---
 
-</details>
-<details> <summary><strong>Objective 2: Cost & Coverage Insights</strong></summary>
+## 🟨 Hospital Utilization & Patient Flow
 
-```sql
--- 1. Encounters with zero payer coverage
-SELECT
-    COUNT(*) AS zero_coverage_count,
-    ROUND(
-        COUNT(*) * 100.0 / (SELECT COUNT(*) FROM encounters),
-        2
-    ) AS zero_coverage_percentage
-FROM encounters
-WHERE PAYER_COVERAGE = 0;
+- Emergency and inpatient encounters drive a large share of volume  
+- Long-duration encounters contribute to capacity constraints  
+- Demand shows variation across time periods  
 
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.1_zero_coverage_encounters.png" alt="zero_coverage_encounters" width="300" height="300"/>
-
-```sql
--- 2. Top 10 most frequent procedures and average base cost
-SELECT 
-    p.DESCRIPTION AS Procedure,
-    COUNT(*) AS procedure_count,
-    ROUND(AVG(p.BASE_COST), 2) AS avg_base_cost
-FROM procedures AS p
-GROUP BY p.DESCRIPTION
-ORDER BY procedure_count DESC
-LIMIT 10;
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.2_common_procedures_costs.png" alt="Common Procedures" width="500" height="800"/>
-
-```sql
-
--- 3. Top 10 procedures by average base cost
-SELECT
-    p.DESCRIPTION AS Procedure,
-    COUNT(*) AS procedure_count,
-    ROUND(AVG(p.BASE_COST), 2) AS avg_base_cost
-FROM procedures AS p
-GROUP BY p.DESCRIPTION
-ORDER BY avg_base_cost DESC
-LIMIT 10;
-
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.3_expensive_procedures_avg.png" alt="Expensive Procedures" width="500" height="800"/>
-
-```sql
--- 4. Average total claim cost by payer
-SELECT
-    e.PAYER,
-    ROUND(AVG(e.TOTAL_CLAIM_COST), 2) AS avg_total_claim_cost
-FROM encounters AS e
-GROUP BY e.PAYER
-ORDER BY avg_total_claim_cost DESC;
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective2.4_avg_claim_cost_by_payer.png" alt="Avg Claim" width="300" height="300"/>
-
-<h2>Recommendations</h2>
-
-- Explore financial assistance or insurance enrollment programs to reduce uninsured encounters.
-
-- Optimize supply chains, staffing, and standardization around high-frequency procedures.
-
-- Review billing/reimbursement rates for high-cost procedures to avoid underpayment.
-
-- Use claim cost by payer to guide payer contracting strategy (push for fairer rates).
+#### **Business Insight**
+Operations are **capacity-constrained**, with inefficiencies in patient throughput limiting scalability.
 
 ---
 
-</details>
+## 🟨 Cost Drivers & Financial Risk
 
-<details> <summary><strong>Objective 3: Patient Behavior Analysis</strong></summary>
-  
-```sql
--- 1. Unique patients admitted each quarter
-SELECT
-    YEAR(e.START) AS encounter_year,
-    QUARTER(e.START) AS encounter_quarter,
-    COUNT(DISTINCT e.PATIENT) AS unique_patients
-FROM encounters e
-GROUP BY YEAR(e.START), QUARTER(e.START)
-ORDER BY encounter_year, encounter_quarter;
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.1_unique_patients_by_quarter.png" alt="Quarter" width="300" height="300"/>
+- High-frequency procedures significantly impact total costs  
+- Certain treatments have disproportionately high average costs  
+- Some encounters have zero payer coverage  
 
-```sql
-
--- 2. Patients readmitted within 30 days
-SELECT
-    COUNT(DISTINCT e1.PATIENT) AS readmitted_patients_count
-FROM encounters e1
-JOIN encounters e2
-    ON e1.PATIENT = e2.PATIENT
-    AND e1.START > e2.STOP
-    AND TIMESTAMPDIFF(DAY, e2.STOP, e1.START) <= 30;
-```
-
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.2_30day_readmissions.png" alt="30" width="150" height="150"/>
-
-```sql
-
--- 3. Patients with the most readmissions
-SELECT
-    e1.PATIENT,
-    COUNT(*) AS readmission_count
-FROM encounters e1
-JOIN encounters e2
-    ON e1.PATIENT = e2.PATIENT
-    AND e1.START > e2.STOP
-    AND TIMESTAMPDIFF(DAY, e2.STOP, e1.START) <= 30
-GROUP BY e1.PATIENT
-ORDER BY readmission_count DESC
-LIMIT 10;
-```
-<img src="https://github.com/a-paija/Hospital-Patient-Records/blob/main/Summarized%20Outputs/objective3.3_patients_most_readmissions.png" alt="Most" width="300" height="300"/>
-
-<h2>Recommendations</h2>
-
-- Staff planning around seasonal peaks (temporary nurses, flu-shot campaigns).
-
-- Implement readmission reduction programs (follow-up calls, medication adherence checks, discharge education).
-
-- Develop chronic disease management programs for high-risk patients to cut readmissions and costs.
+#### **Business Insight**
+Financial performance is influenced by **cost concentration and inconsistent coverage**, increasing risk exposure.
 
 ---
 
-</details>
+## 🟨 Patient Behavior & Care Continuity
+
+- Admissions vary seasonally and operationally  
+- A subset of patients is readmitted within 30 days  
+- Readmissions are concentrated among specific individuals  
+
+#### **Business Insight**
+Readmissions are driven by **gaps in care continuity**, not random variation.
+
+---
+
+## 🟧 Key Operational Risks
+
+- Capacity strain from long-duration encounters  
+- Financial exposure from uninsured patients  
+- Cost concentration in specific procedures  
+- Inefficient discharge and care coordination  
+- Repeated readmissions from high-risk patients  
+
+---
+
+## 🟩 Strategic Recommendations
+
+### **1. Improve Patient Throughput & Capacity Management**
+**Impact:** High  
+- Optimize discharge planning  
+- Expand outpatient and follow-up care  
+- Reduce long-duration stays  
+
+---
+
+### **2. Reduce Readmissions Through Targeted Care**
+**Impact:** High  
+- Implement follow-up programs  
+- Focus on high-risk patients  
+- Improve discharge education and adherence  
+
+---
+
+### **3. Strengthen Cost Control**
+**Impact:** High  
+- Standardize high-frequency procedures  
+- Optimize staffing and resource allocation  
+- Monitor cost variability  
+
+---
+
+### **4. Address Coverage Gaps**
+**Impact:** Medium  
+- Expand insurance support programs  
+- Identify uninsured patient patterns  
+- Improve payer strategy  
+
+---
+
+### **5. Align Staffing with Demand**
+**Impact:** Medium  
+- Adjust staffing for peak periods  
+- Allocate resources by encounter type  
+- Improve scheduling efficiency  
+
+---
 
 ## 📊 Insights & Recommendations Summary
 
-| **Insight** | **Recommendation** |
-|------------|------------------|
-| Yearly hospital encounters are rising. | Scale hospital capacity: increase staff, beds, and outpatient programs to meet demand. |
-| Emergency visits dominate overall encounters. | Invest in outpatient clinics and wellness programs to reduce ER strain. |
-| A subset of encounters last over 24 hours. | Review discharge planning, home health, and care coordination to optimize length of stay. |
-| Some encounters have zero payer coverage. | Implement financial assistance programs and promote insurance enrollment. |
-| High-frequency procedures vary in cost. | Standardize procedures, optimize supply chains, and staff efficiently around common procedures. |
-| Certain procedures are extremely expensive on average. | Audit high-cost procedures, ensure accurate billing, and renegotiate payer rates if needed. |
-| Average claim costs vary by payer. | Use cost analysis to guide payer contracting strategy and reimbursement optimization. |
-| Unique patient admissions peak mid-week and during winter months. | Plan staff schedules seasonally and for mid-week peaks to maintain operational efficiency. |
-| 30-day readmissions occur for a subset of patients. | Implement readmission reduction programs: follow-up calls, medication adherence checks, discharge education. |
-| Patients with frequent readmissions identified. | Develop chronic disease management programs and targeted care plans for high-risk patients. |
-| Older age groups (65+) account for the highest admissions. | Allocate geriatric-specific resources and care programs to meet patient needs. |
-| Length of stay varies by diagnosis and acuity. | Tailor care pathways by diagnosis to improve efficiency and patient outcomes. |
+| Insight | Recommendation |
+|--------|--------------|
+| Patient demand is increasing | Scale capacity and improve throughput |
+| Long stays create bottlenecks | Optimize discharge and care coordination |
+| High-cost procedures drive expenses | Standardize and control treatment costs |
+| Some encounters lack coverage | Expand insurance and financial support |
+| Readmissions are concentrated | Implement targeted care programs |
+| Demand varies over time | Align staffing with demand patterns |
 
 ---
 
-## ✅ Final Summary
-This SQL project provides a full operational view of hospital performance, helping administrators identify bottlenecks, optimize staffing levels, improve patient flow, and enhance quality of care. The findings offer a foundation for predictive analytics and future dashboard development.
+## 🔍 SQL Analysis & Code
 
-Data Source: [SyntheticMass](https://synthea.mitre.org/downloads)
+- **Main SQL Queries:** *(insert link)*  
+- **Exploratory Analysis:** *(insert link)*  
 
-License: Public Domain
+---
