@@ -1,4 +1,4 @@
-# 🏥 Hospital Patient Records & Operational Analysis (SQL)
+
 
 ## 🟦 Project Background
 
