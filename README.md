@@ -6,13 +6,6 @@ Modern healthcare systems generate large volumes of patient and operational data
 
 This project analyzes a hospital patient dataset containing **encounters, procedures, demographics, and financial data** to uncover inefficiencies and identify opportunities to improve operational performance.
 
-The dataset includes:
-- Patient admissions and discharges  
-- Encounter types (inpatient, outpatient, emergency)  
-- Procedures and associated costs  
-- Payer coverage and claim data  
-- Patient demographics and outcomes  
-
 Without structured analysis, hospitals struggle to answer critical questions such as:
 - Where operational bottlenecks occur across patient flow  
 - Which services and departments drive demand  
