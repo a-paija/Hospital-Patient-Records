@@ -15,7 +15,7 @@ This project aims to:
 5. Measure patient behavior, including readmissions and care continuity  
 
 #### **Overall Goal: Improve hospital efficiency, reduce operational strain, and enhance patient outcomes through data-driven decision-making.**
----
+
 
 ## 🟦 Data Structure
 
@@ -23,7 +23,7 @@ The database structure as seen below consists of five tables: patients, encounte
 
 <img src="Query Outputs/EDB.png" alt="ED1" width="700" height="450"/>
 
----
+
 
 ## 🟩 Executive Summary
 
@@ -40,7 +40,7 @@ Key findings:
 > **Core Insight:**  
 > The hospital’s primary constraint is not demand, but the ability to efficiently manage patient flow, control costs, and ensure continuity of care.
 
----
+
 
 ## 🟨 Hospital Utilization & Patient Flow
 
@@ -48,10 +48,10 @@ Key findings:
 - Long-duration encounters contribute to capacity constraints  
 - Demand shows variation across time periods  
 
-#### **Business Insight**
+#### ****
 Operations are **capacity-constrained**, with inefficiencies in patient throughput limiting scalability.
 
----
+
 
 ## 🟨 Cost Drivers & Financial Risk
 
@@ -59,10 +59,10 @@ Operations are **capacity-constrained**, with inefficiencies in patient throughp
 - Certain treatments have disproportionately high average costs  
 - Some encounters have zero payer coverage  
 
-#### **Business Insight**
+#### ****
 Financial performance is influenced by **cost concentration and inconsistent coverage**, increasing risk exposure.
 
----
+
 
 ## 🟨 Patient Behavior & Care Continuity
 
@@ -70,10 +70,10 @@ Financial performance is influenced by **cost concentration and inconsistent cov
 - A subset of patients is readmitted within 30 days  
 - Readmissions are concentrated among specific individuals  
 
-#### **Business Insight**
+#### ****
 Readmissions are driven by **gaps in care continuity**, not random variation.
 
----
+
 
 ## 🟧 Key Operational Risks
 
@@ -83,7 +83,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 - Inefficient discharge and care coordination  
 - Repeated readmissions from high-risk patients  
 
----
+
 
 ## 🟩 Strategic Recommendations
 
@@ -93,7 +93,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 - Expand outpatient and follow-up care  
 - Reduce long-duration stays  
 
----
+
 
 ### **2. Reduce Readmissions Through Targeted Care**
 **Impact:** High  
@@ -101,7 +101,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 - Focus on high-risk patients  
 - Improve discharge education and adherence  
 
----
+
 
 ### **3. Strengthen Cost Control**
 **Impact:** High  
@@ -109,7 +109,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 - Optimize staffing and resource allocation  
 - Monitor cost variability  
 
----
+
 
 ### **4. Address Coverage Gaps**
 **Impact:** Medium  
@@ -117,7 +117,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 - Identify uninsured patient patterns  
 - Improve payer strategy  
 
----
+
 
 ### **5. Align Staffing with Demand**
 **Impact:** Medium  
@@ -125,12 +125,12 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 - Allocate resources by encounter type  
 - Improve scheduling efficiency  
 
----
+
 
 ## 📊 Insights & Recommendations Summary
 
 | Insight | Recommendation |
-|--------|--------------|
+|--|--|
 | Patient demand is increasing | Scale capacity and improve throughput |
 | Long stays create bottlenecks | Optimize discharge and care coordination |
 | High-cost procedures drive expenses | Standardize and control treatment costs |
@@ -138,11 +138,11 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 | Readmissions are concentrated | Implement targeted care programs |
 | Demand varies over time | Align staffing with demand patterns |
 
----
+
 
 ## 🔍 SQL Analysis & Code
 
 - **Main SQL Queries:** *(insert link)*  
 - **Exploratory Analysis:** *(insert link)*  
 
----
+
