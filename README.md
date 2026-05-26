@@ -48,7 +48,7 @@ Key findings:
 - Long-duration encounters contribute to capacity constraints  
 - Demand shows variation across time periods  
 
-#### ****
+
 Operations are **capacity-constrained**, with inefficiencies in patient throughput limiting scalability.
 
 
@@ -59,7 +59,7 @@ Operations are **capacity-constrained**, with inefficiencies in patient throughp
 - Certain treatments have disproportionately high average costs  
 - Some encounters have zero payer coverage  
 
-#### ****
+
 Financial performance is influenced by **cost concentration and inconsistent coverage**, increasing risk exposure.
 
 
@@ -70,7 +70,7 @@ Financial performance is influenced by **cost concentration and inconsistent cov
 - A subset of patients is readmitted within 30 days  
 - Readmissions are concentrated among specific individuals  
 
-#### ****
+
 Readmissions are driven by **gaps in care continuity**, not random variation.
 
 
