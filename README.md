@@ -45,20 +45,9 @@ This project aims to:
 
 ## 🟦 Data Structure & SQL Techniques
 
-### **Core Tables**
-- `encounters` – patient visits, timing, payer, outcomes  
-- `procedures` – treatments and associated costs  
+The database structure as seen below consists of five tables: patients, encounters, procedures, payers and organizations, with a total row count of 27,891 records. Each record represents a single patient encounter along with the associated attributes.
 
-Each record represents a **patient encounter**, with linked operational and financial attributes.
-
-### **SQL Techniques Used**
-- CTEs  
-- Window functions  
-- Aggregations  
-- Joins  
-- Date/time manipulation  
-- Case statements  
-- Ranking functions  
+<img src="Query Outputs/EDB.png" alt="ED1" width="700" height="450"/>
 
 ---
 
