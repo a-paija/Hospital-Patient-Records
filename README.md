@@ -6,26 +6,6 @@ Modern healthcare systems generate large volumes of patient and operational data
 
 This project analyzes a hospital patient dataset containing **encounters, procedures, demographics, and financial data** to uncover inefficiencies and identify opportunities to improve operational performance.
 
-Without structured analysis, hospitals struggle to answer critical questions such as:
-- Where operational bottlenecks occur across patient flow  
-- Which services and departments drive demand  
-- How efficiently patients are treated and discharged  
-- Where financial risks and cost inefficiencies exist  
-- Which patient segments are most at risk of readmission  
-
-#### **Overall Goal: Improve hospital efficiency, reduce operational strain, and enhance patient outcomes through data-driven decision-making.**
-
-This project transforms raw healthcare data into actionable insights using **SQL for deep diagnostic analysis**:
-
-- SQL identifies **where inefficiencies occur**  
-- Analysis explains **why they occur**  
-
----
-
-## 🟦 Business Objectives & Analytical Focus
-
-The primary objective is to evaluate **hospital operations, patient flow, and cost efficiency**.
-
 This project aims to:
 
 1. Analyze patient volume and encounter trends  
@@ -34,9 +14,10 @@ This project aims to:
 4. Assess payer coverage and reimbursement patterns  
 5. Measure patient behavior, including readmissions and care continuity  
 
+#### **Overall Goal: Improve hospital efficiency, reduce operational strain, and enhance patient outcomes through data-driven decision-making.**
 ---
 
-## 🟦 Data Structure & SQL Techniques
+## 🟦 Data Structure
 
 The database structure as seen below consists of five tables: patients, encounters, procedures, payers and organizations, with a total row count of 27,891 records. Each record represents a single patient encounter along with the associated attributes.
 
