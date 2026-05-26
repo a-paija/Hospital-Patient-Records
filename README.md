@@ -18,7 +18,9 @@ This project aims to:
 
 ---
 
-The full SQL script can be found [here](https://github.com/a-paija/Hospital-Patient-Records/blob/main/Hospital%20SQL%20Queries.sql) or at the bottom of this page.
+The full SQL script can be found at the bottom of this page or [here](https://github.com/a-paija/Hospital-Patient-Records/blob/main/Hospital%20SQL%20Queries.sql)
+
+---
 
 
 ## 🟦 Data Structure
