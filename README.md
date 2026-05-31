@@ -1,6 +1,4 @@
-
-
-## 🟦 Project Background
+## Project Background
 
 Modern healthcare systems generate large volumes of patient and operational data, yet much of it remains underutilized for decision-making. Hospitals often lack clear visibility into **patient flow, resource utilization, cost drivers, and care outcomes**, making it difficult to operate efficiently while maintaining quality of care.
 
@@ -23,7 +21,7 @@ The full SQL script can be found at the bottom of this page or [here](https://gi
 ---
 
 
-## 🟦 Data Structure
+## Data Structure
 
 The database structure as seen below consists of five tables: patients, encounters, procedures, payers and organizations, with a total row count of 27,891 records. Each record represents a single patient encounter along with the associated attributes.
 
@@ -31,7 +29,7 @@ The database structure as seen below consists of five tables: patients, encounte
 
 
 
-## 🟩 Executive Summary
+## Executive Summary
 
 Hospital demand is strong, but performance is constrained by **capacity pressure, cost variability, and inefficiencies in patient flow and care continuity**.
 
@@ -48,7 +46,7 @@ Key findings:
 
 
 
-## 🟨 Hospital Utilization & Patient Flow
+## Hospital Utilization & Patient Flow
 
 - Emergency and inpatient encounters drive a large share of volume  
 - Long-duration encounters contribute to capacity constraints  
@@ -59,7 +57,7 @@ Operations are **capacity-constrained**, with inefficiencies in patient throughp
 
 
 
-## 🟨 Cost Drivers & Financial Risk
+## Cost Drivers & Financial Risk
 
 - High-frequency procedures significantly impact total costs  
 - Certain treatments have disproportionately high average costs  
@@ -70,7 +68,7 @@ Financial performance is influenced by **cost concentration and inconsistent cov
 
 
 
-## 🟨 Patient Behavior & Care Continuity
+## Patient Behavior & Care Continuity
 
 - Admissions vary seasonally and operationally  
 - A subset of patients is readmitted within 30 days  
@@ -81,7 +79,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 
 
 
-## 🟧 Key Operational Risks
+## Key Operational Risks
 
 - Capacity strain from long-duration encounters  
 - Financial exposure from uninsured patients  
@@ -91,7 +89,7 @@ Readmissions are driven by **gaps in care continuity**, not random variation.
 
 
 
-## 🟩 Strategic Recommendations
+## Strategic Recommendations
 
 ### **1. Improve Patient Throughput & Capacity Management**
 **Impact:** High  
